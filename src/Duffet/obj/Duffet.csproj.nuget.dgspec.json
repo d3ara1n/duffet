@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/chien/Projects/duffet/src/Duffet/Duffet.csproj": {}
+    "/home/chien/Projects/arcbot/submodules/duffet/src/Duffet/Duffet.csproj": {}
   },
   "projects": {
-    "/home/chien/Projects/duffet/src/Duffet/Duffet.csproj": {
+    "/home/chien/Projects/arcbot/submodules/duffet/src/Duffet/Duffet.csproj": {
       "version": "0.1.0",
       "restore": {
-        "projectUniqueName": "/home/chien/Projects/duffet/src/Duffet/Duffet.csproj",
+        "projectUniqueName": "/home/chien/Projects/arcbot/submodules/duffet/src/Duffet/Duffet.csproj",
         "projectName": "Duffet",
-        "projectPath": "/home/chien/Projects/duffet/src/Duffet/Duffet.csproj",
+        "projectPath": "/home/chien/Projects/arcbot/submodules/duffet/src/Duffet/Duffet.csproj",
         "packagesPath": "/home/chien/.nuget/packages/",
-        "outputPath": "/home/chien/Projects/duffet/src/Duffet/obj/",
+        "outputPath": "/home/chien/Projects/arcbot/submodules/duffet/src/Duffet/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/chien/.nuget/NuGet/NuGet.Config"

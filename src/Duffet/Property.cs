@@ -1,55 +1,33 @@
+using System.Collections.Specialized;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Duffet;
 
 public record Property
 {
-    public object Object { get; init; }
+    public string Name { get; set; }
+    public bool IsNamed => !string.IsNullOrWhiteSpace(Name);
+    public Type Type { get; set; }
+    public object Value { get; set; }
+    public bool IsValueLazy { get; set; }
 
-    public Lazy<object> Lazy { get; init; }
+    public IEnumerable<(Type, Func<object, Type, object>)> AdaptedTypes { get; set; }
 
-    public bool IsLazy { get; init; }
+    public object GetValue() => IsValueLazy ? ((Lazy<object>)Value).Value : Value;
 
-    public bool IsNamed { get; init; }
-
-    public Type DeclaredType { get; init; }
-
-    public string DeclaredName { get; init; }
-
-    public static Property Lazied(Lazy<object> lazy, Type type,string name)
+    public object AdaptValue(Type type)
     {
-        var property = new Property()
+        if (Type == type)
         {
-            IsNamed = string.IsNullOrWhiteSpace(name) ? false : true,
-            DeclaredName = name,
-            IsLazy = true,
-            Lazy = lazy,
-            Object = default,
-            DeclaredType = type
-        };
-
-        return property;
-    }
-    public static Property Lazied(Lazy<object> lazy, Type type) =>
-        Lazied(lazy, type, string.Empty);
-
-    public static Property Objected(object obj, Type type, string name)
-    {
-        var property = new Property()
+            return GetValue();
+        }
+        foreach (var casting in AdaptedTypes)
         {
-            IsNamed = string.IsNullOrWhiteSpace(name) ? false : true,
-            DeclaredName = name,
-            IsLazy = true,
-            Lazy = default,
-            Object = obj,
-            DeclaredType = type
-        };
-
-        return property;
+            if (casting.Item1 == type)
+            {
+                return casting.Item2.Invoke(GetValue(), type);
+            }
+        }
+        throw new Exception("type not suitable");
     }
-
-    public static Property Objected(object obj, Type type) =>
-        Objected(obj, type, string.Empty);
-
-    public object GetValue() => IsLazy ? Lazy.Value : Object;
 }
