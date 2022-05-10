@@ -23,7 +23,7 @@ public record Property
         }
         foreach (var casting in AdaptedTypes)
         {
-            if (casting.Item1 == type)
+            if (casting.Item1.IsAssignableFrom(type))
             {
                 return casting.Item2.Invoke(GetValue(), type);
             }
