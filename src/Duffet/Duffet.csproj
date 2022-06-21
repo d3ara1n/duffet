@@ -3,9 +3,10 @@
   <PropertyGroup>
     <Name>Duffet</Name>
     <Version>0.1</Version>
+    <Authors>D3ara1n</Authors>
     <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/d3ara1n/duffet</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
