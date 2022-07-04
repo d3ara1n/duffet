@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Duffet.Builders;
 
@@ -7,51 +8,56 @@ namespace Duffet;
 
 public class Bank
 {
-    Dictionary<string, Property> namedProperties = new();
-    List<Property> remainingProperties = new();
+    private readonly Dictionary<string, Property> namedProperties = new();
+    private readonly List<Property> remainingProperties = new();
 
     public Bank(IEnumerable<Property> storage)
     {
-        foreach(var property in storage)
-        {
-            if(property.IsNamed)
-            {
+        foreach (var property in storage)
+            if (property.IsNamed)
                 namedProperties.Add(property.Name, property);
-            }else
-            {
+            else
                 remainingProperties.Add(property);
-            }
-        }
     }
-    public static BankBuilder Builder() => new();
+
+    public static BankBuilder Builder()
+    {
+        return new BankBuilder();
+    }
 
     public object[] Serve(MethodInfo method)
     {
         var parameters = method.GetParameters();
         var arguments = new object[parameters.Length];
-        for (int i = 0; i < arguments.Length; i++)
+        for (var i = 0; i < arguments.Length; i++)
         {
             if (namedProperties.ContainsKey(parameters[i].Name))
             {
                 arguments[i] = namedProperties[parameters[i].Name].AdaptValue(parameters[i].ParameterType);
                 break;
             }
-            else
-            {
-                foreach (var property in remainingProperties)
+
+            foreach (var property in remainingProperties)
+                if (property.Type.IsAssignableTo(parameters[i].ParameterType))
                 {
-                    if (property.Type == parameters[i].ParameterType)
+                    arguments[i] = property.GetValue();
+                    break;
+                }
+                else
+                {
+                    foreach (var adapted in property.AdaptedTypes)
                     {
-                        arguments[i] = property.GetValue();
-                        break;
+                        if (adapted.Item1.IsAssignableTo(parameters[i].ParameterType))
+                        {
+                            arguments[i] = adapted.Item2(property.GetValue(), parameters[i].ParameterType);
+                            break;
+                        }
                     }
                 }
-            }
-            if (arguments[i] == null)
-            {
-                throw new Exception("parameter has no target found");
-            }
+
+            if (arguments[i] == null) throw new Exception("parameter has no target found");
         }
+
         return arguments;
     }
 }

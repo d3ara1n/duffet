@@ -6,10 +6,9 @@ namespace Duffet.Builders;
 
 public class PropertyBuilder : IBuilder<Property>
 {
-    Property inner = new();
+    private readonly List<(Type, Func<object, Type, object>)> adapters = new();
+    private readonly Property inner = new();
 
-    List<(Type, Func<object, Type, object>)> adapters = new();
-    
     public Property Build()
     {
         inner.AdaptedTypes = adapters;
@@ -44,7 +43,7 @@ public class PropertyBuilder : IBuilder<Property>
 
     public PropertyBuilder HasTypeAdapted(Type type, Func<object, Type, object> casting)
     {
-        adapters.Add((type, casting));
+        if (inner.Type != type) adapters.Add((type, casting));
         return this;
     }
 }

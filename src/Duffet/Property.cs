@@ -13,21 +13,17 @@ public record Property
 
     public IEnumerable<(Type, Func<object, Type, object>)> AdaptedTypes { get; set; }
 
-    public object GetValue() => IsValueLazy ? ((Lazy<object>)Value).Value : Value;
+    public object GetValue()
+    {
+        return IsValueLazy ? ((Lazy<object>)Value).Value : Value;
+    }
 
     public object AdaptValue(Type type)
     {
-        if (Type == type)
-        {
-            return GetValue();
-        }
+        if (Type == type) return GetValue();
         foreach (var casting in AdaptedTypes)
-        {
             if (casting.Item1.IsAssignableFrom(type))
-            {
                 return casting.Item2.Invoke(GetValue(), type);
-            }
-        }
         throw new Exception("type not suitable");
     }
 }

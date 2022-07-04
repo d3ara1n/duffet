@@ -6,7 +6,7 @@ namespace Duffet.Builders;
 
 public class BankBuilder : IBuilder<Bank>
 {
-    List<PropertyBuilder> builders = new();
+    private readonly List<PropertyBuilder> builders = new();
 
     public Bank Build()
     {
