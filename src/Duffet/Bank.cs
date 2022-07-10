@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Duffet.Builders;
 
@@ -46,13 +45,11 @@ public class Bank
                 else
                 {
                     foreach (var adapted in property.AdaptedTypes)
-                    {
                         if (adapted.Item1.IsAssignableTo(parameters[i].ParameterType))
                         {
                             arguments[i] = adapted.Item2(property.GetValue(), parameters[i].ParameterType);
                             break;
                         }
-                    }
                 }
 
             if (arguments[i] == null) throw new Exception("parameter has no target found");
