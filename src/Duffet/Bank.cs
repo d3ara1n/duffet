@@ -33,7 +33,7 @@ public class Bank
             if (namedProperties.ContainsKey(parameters[i].Name))
             {
                 arguments[i] = namedProperties[parameters[i].Name].AdaptValue(parameters[i].ParameterType);
-                break;
+                continue;
             }
 
             foreach (var property in remainingProperties)

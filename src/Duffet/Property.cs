@@ -22,7 +22,7 @@ public record Property
     {
         if (Type == type) return GetValue();
         foreach (var casting in AdaptedTypes)
-            if (casting.Item1.IsAssignableFrom(type))
+            if (casting.Item1.IsAssignableTo(type))
                 return casting.Item2.Invoke(GetValue(), type);
         throw new Exception("type not suitable");
     }
