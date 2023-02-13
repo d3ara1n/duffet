@@ -20,7 +20,8 @@ public record Property
 
     public object AdaptValue(Type type)
     {
-        if (Type == type) return GetValue();
+        if (Type == type)
+            return GetValue();
         foreach (var casting in AdaptedTypes)
             if (casting.Item1.IsAssignableTo(type))
                 return casting.Item2.Invoke(GetValue(), type);

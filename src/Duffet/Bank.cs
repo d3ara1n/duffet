@@ -32,7 +32,9 @@ public class Bank
         {
             if (namedProperties.ContainsKey(parameters[i].Name))
             {
-                arguments[i] = namedProperties[parameters[i].Name].AdaptValue(parameters[i].ParameterType);
+                arguments[i] = namedProperties[parameters[i].Name].AdaptValue(
+                    parameters[i].ParameterType
+                );
                 continue;
             }
 
@@ -47,12 +49,16 @@ public class Bank
                     foreach (var adapted in property.AdaptedTypes)
                         if (adapted.Item1.IsAssignableTo(parameters[i].ParameterType))
                         {
-                            arguments[i] = adapted.Item2(property.GetValue(), parameters[i].ParameterType);
+                            arguments[i] = adapted.Item2(
+                                property.GetValue(),
+                                parameters[i].ParameterType
+                            );
                             break;
                         }
                 }
 
-            if (arguments[i] == null) throw new Exception("parameter has no target found");
+            if (arguments[i] == null)
+                throw new Exception("parameter has no target found");
         }
 
         return arguments;

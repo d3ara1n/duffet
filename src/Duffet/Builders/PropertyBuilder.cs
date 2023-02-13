@@ -43,7 +43,8 @@ public class PropertyBuilder : IBuilder<Property>
 
     public PropertyBuilder HasTypeAdapted(Type type, Func<object, Type, object> casting)
     {
-        if (inner.Type != type) adapters.Add((type, casting));
+        if (inner.Type != type)
+            adapters.Add((type, casting));
         return this;
     }
 }
