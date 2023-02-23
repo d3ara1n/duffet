@@ -58,7 +58,16 @@ public class Bank
                 }
 
             if (arguments[i] == null)
-                throw new Exception("parameter has no target found");
+            {
+                if (parameters[i].HasDefaultValue)
+                {
+                    arguments[i] = parameters[i].DefaultValue!;
+                }
+                else
+                {
+                    throw new Exception("parameter has no target found");
+                }
+            }
         }
 
         return arguments;
