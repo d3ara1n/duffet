@@ -7,6 +7,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/d3ara1n/duffet</RepositoryUrl>
+        <Platforms>AnyCPU;ARM64</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
