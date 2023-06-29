@@ -1,7 +1,7 @@
+using Duffet.Builders;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Duffet.Builders;
 
 namespace Duffet;
 

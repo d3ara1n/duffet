@@ -1,6 +1,6 @@
+using IBuilder;
 using System.Collections.Generic;
 using System.Linq;
-using IBuilder;
 
 namespace Duffet.Builders;
 
