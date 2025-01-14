@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Duffet;
 
-public class Bank
+public class Bank: IBank
 {
     private readonly Dictionary<string, Property> namedProperties = new();
     private readonly List<Property> remainingProperties = new();
@@ -27,7 +27,7 @@ public class Bank
     public object[] Serve(MethodInfo method)
     {
         var parameters = method.GetParameters();
-        var arguments = new object[parameters.Length];
+        var arguments = new object?[parameters.Length];
         for (var i = 0; i < arguments.Length; i++)
         {
             if (namedProperties.ContainsKey(parameters[i].Name))

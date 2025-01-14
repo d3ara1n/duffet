@@ -4,14 +4,15 @@
         <Name>Duffet</Name>
         <Version>0.1.4</Version>
         <Authors>D3ara1n</Authors>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/d3ara1n/duffet</RepositoryUrl>
         <Platforms>AnyCPU;ARM64</Platforms>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="IBuilder" Version="0.1.0"/>
+        <PackageReference Include="IBuilder" Version="0.3.0"/>
     </ItemGroup>
 
 </Project>

@@ -4,20 +4,19 @@ using System.Linq;
 
 namespace Duffet.Builders;
 
-public class BankBuilder : IBuilder<Bank>
+public class BankBuilder : IBankBuilder
 {
     private readonly List<PropertyBuilder> builders = new();
 
-    public Bank Build()
+    public IBank Build()
     {
         var bank = new Bank(builders.Select(x => x.Build()));
         return bank;
     }
 
-    public PropertyBuilder Property()
+    public IBankBuilder Add(PropertyBuilder property)
     {
-        var builder = new PropertyBuilder();
-        builders.Add(builder);
-        return builder;
+        builders.Add(property);
+        return this;
     }
 }
